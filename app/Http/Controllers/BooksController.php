@@ -41,13 +41,13 @@ class BooksController extends Controller
     public function saveCompleteName(Request $request)
     {
         // 1. Save the first name and last name of the user into the session (https://laravel.com/docs/9.x/session)
-        $request->session()->___________('first_name', $request->first_name);
-        $request->session()->___________('last_name', $request->last_name);
+        $request->session()->put('first_name', $request->first_name);
+        $request->session()->put('last_name', $request->last_name);
 
         // .... add your code here
 
         // 2. Read this documentation for redirection (https://laravel.com/docs/9.x/redirects), and redirect to the page or endpoint where the books are listed
-        return redirect('/??????????');
+        return redirect('select-books');
     }
 
     public function listBooks(Request $request)
@@ -55,8 +55,8 @@ class BooksController extends Controller
         $books = static::BOOKS;
 
         // 1. You would need to retrieve the first name and last name from the session, and save it to these variable names $first_name, $last_name
-        $first_name = $request->session()->___________('first_name');
-        $last_name = $request->session()->____________('last_name');
+        $first_name = $request->session()->get('first_name');
+        $last_name = $request->session()->get('last_name');
 
         return view('books.select-books', compact('books', 'first_name', 'last_name'));
     }
@@ -67,7 +67,7 @@ class BooksController extends Controller
 
         // 1. Save all the selected books array that is stored in a session variable https://laravel.com/docs/9.x/session#storing-data
         foreach ($request->books as $book) {
-            $request->session()->______________('books', $book);
+            $request->session()->put('books', $book);
         }
 
         return redirect('thank-you');
@@ -77,16 +77,16 @@ class BooksController extends Controller
     {
         $books = static::BOOKS;
 
-        $first_name = $request->session()->_________________________;
-        $last_name = _______________________________________________;
+        $first_name = $request->session()->get('first_name');
+        $last_name = $request->session()->get('last_name');
 
         $book_codes = $request->session()->get('books');
         $reserved_books = [];
 
         foreach ($books as $book) {
-            // if (in_array()) {
-            //     array_push($reserved_books, $book);
-            // }
+             if (in_array()) {
+                 array_push($reserved_books, $book);
+             }
         }
 
         $request->session()->flush();
